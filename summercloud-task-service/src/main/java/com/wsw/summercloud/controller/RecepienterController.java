@@ -1,6 +1,6 @@
-package com.wsw.fusertaskmanager.controller;
+package com.wsw.summercloud.controller;
 
-import com.wsw.fusertaskmanager.service.RecepienterService;
+import com.wsw.summercloud.service.RecepienterService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;

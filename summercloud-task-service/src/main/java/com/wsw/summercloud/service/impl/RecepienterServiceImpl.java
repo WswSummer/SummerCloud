@@ -1,9 +1,9 @@
-package com.wsw.fusertaskmanager.service.impl;
+package com.wsw.summercloud.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.rabbitmq.client.Channel;
-import com.wsw.fusertaskmanager.mapper.RecepienterMapper;
-import com.wsw.fusertaskmanager.service.RecepienterService;
+import com.wsw.summercloud.mapper.RecepienterMapper;
+import com.wsw.summercloud.service.RecepienterService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
