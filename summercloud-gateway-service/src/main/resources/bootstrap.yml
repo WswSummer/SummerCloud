@@ -1,11 +1,11 @@
 server:
-    port: 1998
+    port: 4000
 
 spring:
     profiles:
         active: dev  # 开发环境
     application:
-        name: manager-gateway-service
+        name: summercloud-gateway-service
     cloud:
         nacos:
             discovery:
