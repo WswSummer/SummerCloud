@@ -1,0 +1,68 @@
+server:
+    port: 1998
+
+spring:
+    profiles:
+        active: dev  # 开发环境
+    application:
+        name: manager-gateway-service
+    cloud:
+        nacos:
+            discovery:
+                server-addr: localhost:8848  # nacos注册中心地址
+            config:
+                server-addr: localhost:8848  # nacos配置中心地址
+                file-extension: yaml  # 配置文件格式
+                group: DEFAULT_GROUP
+        sentinel:
+            eager: true  # 取消控制台懒加载
+            transport:
+                dashboard: localhost:9090  # sentinel dashboard地址
+                port: 8719  # sentinel api port
+            # sentinel配置持久化
+            datasource:
+                ds1:
+                    nacos:
+                        server-addr: localhost:8848
+                        dataId: manager-gateway-service
+                        groupId: TEST_GROUP
+                        data-type: json
+                        rule-type: flow
+        gateway:
+            discovery:
+                locator:
+                    enabled: false  # 是否与服务发现组件进行结合，通过 serviceId 转发到具体的服务实例。默认为false
+            # 路由规则配置
+            routes:
+                # task主服务
+                - id: manager-task-service-route  # 路由ID
+                  # gateway自动从Nacos获取manager-task-service可用节点进行转发
+                  # 默认会将所有gateway uri转发
+                  uri: lb://manager-task-service
+                  predicates:  # 谓词
+                      - Path=/manager-task-service/**  # 1998/manager-task-service/task/select/byid -> 2001/manager-task-service/task/select/byid
+                      - After=2020-11-12T00:00:00.000+08:00[Asia/Shanghai]  # 2020-11-12后该微服务才上线，暴露接口
+                  filters:  # 过滤器
+                      - StripPrefix=1  # 忽略掉第一层前缀进行转发 1998/manager-task-service/task/select/byid -> 2001/task/select/byid
+                # 认证中心
+                - id: manager-auth-service-route
+                  uri: lb://manager-auth-service
+                  predicates:
+                      - Path=/manager-auth-service/**
+                  filters:
+                      - StripPrefix=1
+
+            globalcors:
+                cors-configurations:
+                    '[/**]':  # gateway网关上所有URI都应用以下跨域设计
+                        allow-credentials: true  # 允许携带认证信息
+                        allowed-origins:
+                            - "*"  # 允许所有来源进行跨域访问
+                        allowed-headers: "*"  # 允许跨域请求里的head字段
+                        allowed-methods:
+                            - GET
+                            - POST
+                            - PUT
+                            - DELETE
+                            - OPTIONS
+                        max-age: 3600  # 缓存时长 1小时

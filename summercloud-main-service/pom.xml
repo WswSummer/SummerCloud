@@ -41,7 +41,7 @@
         <!-- feign client service-->
         <dependency>
             <groupId>com.wsw</groupId>
-            <artifactId>manager-feign-client-service</artifactId>
+            <artifactId>summercloud-feign-service</artifactId>
             <version>${project.version}</version>
         </dependency>
         <!-- RabbitMQ-->
