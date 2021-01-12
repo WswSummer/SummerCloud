@@ -1,6 +1,6 @@
-package com.wsw.fusertaskmanager.fallback;
+package com.wsw.summercloud.fallback;
 
-import com.wsw.fusertaskmanager.client.TesterClient;
+import com.wsw.summercloud.client.TeskClient;
 import feign.hystrix.FallbackFactory;
 
 /**
@@ -8,9 +8,9 @@ import feign.hystrix.FallbackFactory;
  * @Date: Created in 13:46 2021/1/5
  * @Description:
  */
-public class TesterClientFallBack implements FallbackFactory<TesterClient> {
+public class TeskClientFallBack implements FallbackFactory<TeskClient> {
     @Override
-    public TesterClient create(Throwable throwable) {
+    public TeskClient create(Throwable throwable) {
         return null;
     }
 }

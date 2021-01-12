@@ -1,4 +1,4 @@
-package com.wsw.fusertaskmanager.client;
+package com.wsw.summercloud.client;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @Date: Created in 13:42 2021/1/5
  * @Description: 调用tester服务
  */
-@FeignClient(value = "manager-tester-service")
-public interface TesterClient {
+@FeignClient(value = "summercloud-main-service")
+public interface TeskClient {
 
     @PostMapping("/tester/create")
     int create(@RequestParam("taskId") Long taskId, @RequestParam("taskName") String taskName, @RequestParam("name") String name, @RequestParam("remark") String remark);
