@@ -1,17 +1,25 @@
 spring:
-    profiles:
-        active: dev  # 开发环境
-    application:
-        name: summercloud-auth-service
-    cloud:
-        nacos:
-            discovery:
-                server-addr: localhost:8848  # nacos注册中心地址
-            config:
-                server-addr: localhost:8848  # nacos配置中心地址
-                file-extension: yaml  # 配置文件格式
-                group: DEFAULT_GROUP
-                ext-config:
-                    - data-id: summercloud-${spring.profiles.active}.yaml
-                      group: DEFAULT_GROUP
-                      refresh: true  # 是否允许自动刷新
+  profiles:
+    active: dev  # 开发环境
+  application:
+    name: summercloud-auth-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848  # nacos注册中心地址
+      config:
+        server-addr: localhost:8848  # nacos配置中心地址
+        file-extension: yaml  # 配置文件格式
+        group: DEFAULT_GROUP
+        ext-config:
+          - data-id: summercloud-${spring.profiles.active}.yaml
+            group: DEFAULT_GROUP
+            refresh: true  # 是否允许自动刷新
+
+# 全局参数设置
+ribbon:
+  ReadTimeout: 120000
+  ConnectTimeout: 10000
+  SocketTimeout: 10000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
