@@ -1,8 +1,8 @@
-package com.wsw.fusertaskmanager.service.impl;
+package com.wsw.summercloud.service.impl;
 
-import com.wsw.fusertaskmanager.domain.User;
-import com.wsw.fusertaskmanager.mapper.AuthMapper;
-import com.wsw.fusertaskmanager.service.AuthService;
+import com.wsw.summercloud.domain.User;
+import com.wsw.summercloud.mapper.AuthMapper;
+import com.wsw.summercloud.service.AuthService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

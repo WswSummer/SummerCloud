@@ -2,7 +2,7 @@ spring:
     profiles:
         active: dev  # 开发环境
     application:
-        name: manager-auth-service
+        name: summercloud-auth-service
     cloud:
         nacos:
             discovery:

@@ -1,4 +1,4 @@
-package com.wsw.fusertaskmanager.config;
+package com.wsw.summercloud.config;
 
 import lombok.Getter;
 import lombok.Setter;

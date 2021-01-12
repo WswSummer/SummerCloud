@@ -1,6 +1,6 @@
-package com.wsw.fusertaskmanager.service;
+package com.wsw.summercloud.service;
 
-import com.wsw.fusertaskmanager.domain.User;
+import com.wsw.summercloud.domain.User;
 
 /**
  * @Author WangSongWen

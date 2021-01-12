@@ -1,11 +1,11 @@
-package com.wsw.fusertaskmanager.controller;
+package com.wsw.summercloud.controller;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wsw.fusertaskmanager.api.CommonResult;
-import com.wsw.fusertaskmanager.config.AuthConfig;
-import com.wsw.fusertaskmanager.domain.User;
-import com.wsw.fusertaskmanager.service.AuthService;
+import com.wsw.summercloud.api.CommonResult;
+import com.wsw.summercloud.config.AuthConfig;
+import com.wsw.summercloud.domain.User;
+import com.wsw.summercloud.service.AuthService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;

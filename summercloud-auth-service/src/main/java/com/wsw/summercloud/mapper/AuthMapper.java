@@ -1,6 +1,6 @@
-package com.wsw.fusertaskmanager.mapper;
+package com.wsw.summercloud.mapper;
 
-import com.wsw.fusertaskmanager.domain.User;
+import com.wsw.summercloud.domain.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
