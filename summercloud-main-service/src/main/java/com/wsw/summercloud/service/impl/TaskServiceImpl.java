@@ -1,6 +1,6 @@
 package com.wsw.summercloud.service.impl;
 
-import com.wsw.summercloud.client.TeskClient;
+import com.wsw.summercloud.client.TaskClient;
 import com.wsw.summercloud.domain.Task;
 import com.wsw.summercloud.mapper.TaskMapper;
 import com.wsw.summercloud.message.AsyncSendMessage;
@@ -41,7 +41,7 @@ public class TaskServiceImpl implements TaskService {
     @Resource
     private TaskMapper taskMapper;
     @Resource
-    private TeskClient teskClient;
+    private TaskClient teskClient;
     @Resource
     private AsyncSendMessage asyncSendMessage;
     @Autowired

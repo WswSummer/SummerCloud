@@ -24,7 +24,7 @@ spring:
                 ds1:
                     nacos:
                         server-addr: localhost:8848
-                        dataId: manager-gateway-service
+                        dataId: summercloud-gateway-service
                         groupId: TEST_GROUP
                         data-type: json
                         rule-type: flow
@@ -34,21 +34,21 @@ spring:
                     enabled: false  # 是否与服务发现组件进行结合，通过 serviceId 转发到具体的服务实例。默认为false
             # 路由规则配置
             routes:
-                # task主服务
-                - id: manager-task-service-route  # 路由ID
-                  # gateway自动从Nacos获取manager-task-service可用节点进行转发
+                # main主服务
+                - id: summercloud-main-service-route  # 路由ID
+                  # gateway自动从Nacos获取summercloud-main-service可用节点进行转发
                   # 默认会将所有gateway uri转发
-                  uri: lb://manager-task-service
+                  uri: lb://summercloud-main-service
                   predicates:  # 谓词
-                      - Path=/manager-task-service/**  # 1998/manager-task-service/task/select/byid -> 2001/manager-task-service/task/select/byid
+                      - Path=/summercloud-main-service/**  # 1998/summercloud-main-service/task/select/byid -> 2001/summercloud-main-service/task/select/byid
                       - After=2020-11-12T00:00:00.000+08:00[Asia/Shanghai]  # 2020-11-12后该微服务才上线，暴露接口
                   filters:  # 过滤器
-                      - StripPrefix=1  # 忽略掉第一层前缀进行转发 1998/manager-task-service/task/select/byid -> 2001/task/select/byid
+                      - StripPrefix=1  # 忽略掉第一层前缀进行转发 1998/summercloud-main-service/task/select/byid -> 2001/task/select/byid
                 # 认证中心
-                - id: manager-auth-service-route
-                  uri: lb://manager-auth-service
+                - id: summercloud-auth-service-route
+                  uri: lb://summercloud-auth-service
                   predicates:
-                      - Path=/manager-auth-service/**
+                      - Path=/summercloud-auth-service/**
                   filters:
                       - StripPrefix=1
 

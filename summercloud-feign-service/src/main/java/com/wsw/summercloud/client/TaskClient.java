@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @Date: Created in 13:42 2021/1/5
  * @Description: 调用tester服务
  */
-@FeignClient(value = "summercloud-main-service")
-public interface TeskClient {
+@FeignClient(value = "summercloud-task-service")
+public interface TaskClient {
 
-    @PostMapping("/tester/create")
+    @PostMapping("/task/create")
     int create(@RequestParam("taskId") Long taskId, @RequestParam("taskName") String taskName, @RequestParam("name") String name, @RequestParam("remark") String remark);
 
 }

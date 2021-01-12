@@ -12,6 +12,6 @@ spring:
                 file-extension: yaml  # 配置文件格式
                 group: DEFAULT_GROUP
                 ext-config:
-                    - data-id: manager-${spring.profiles.active}.yaml
+                    - data-id: summercloud-${spring.profiles.active}.yaml
                       group: DEFAULT_GROUP
                       refresh: true  # 是否允许自动刷新

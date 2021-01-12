@@ -22,7 +22,7 @@ spring:
                 ds1:
                     nacos:
                         server-addr: localhost:8848
-                        dataId: manager-recepienter-service
+                        dataId: summercloud-task-service
                         groupId: DEFAULT_GROUP
                         data-type: json
                         rule-type: flow
