@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import com.wsw.summercloud.domain.User;
+import org.springframework.stereotype.Component;
 import sun.misc.BASE64Encoder;
 
 import javax.crypto.SecretKey;
@@ -15,13 +16,14 @@ import java.util.Date;
  * @Date: Created in 16:51 2021/1/12
  * @Description: Jwt工具类
  */
+@Component
 public class JwtUtil {
     /**
      * @description: 生成token
      * @author: wangsongwen
      * @date: 2020/12/2 16:14
      **/
-    private String getToken(User user, String tokenKey, Integer authTokenET) {
+    public String getToken(User user, String tokenKey, Integer authTokenET) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         user.setPassword(null);  // jwt的json数据不能包含敏感信息
@@ -53,7 +55,7 @@ public class JwtUtil {
      * @author: wangsongwen
      * @date: 2020/12/2 16:15
      **/
-    private String refreshToken(User user, String tokenKey, Integer refreshTokenET) {
+    public String refreshToken(User user, String tokenKey, Integer refreshTokenET) {
         String refreshToken = null;
         try {
             refreshToken = getToken(user, tokenKey, refreshTokenET);

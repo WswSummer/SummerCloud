@@ -1,27 +1,22 @@
 package com.wsw.summercloud.controller;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wsw.summercloud.api.CommonResult;
 import com.wsw.summercloud.config.AuthConfig;
 import com.wsw.summercloud.domain.User;
 import com.wsw.summercloud.service.AuthService;
 import com.wsw.summercloud.utils.JwtUtil;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import sun.misc.BASE64Encoder;
 
 import javax.annotation.Resource;
-import javax.crypto.SecretKey;
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author WangSongWen
@@ -29,13 +24,15 @@ import java.util.Map;
  * @Description: 认证中心颁发给前端的token分为auth_token(一般token - 过期时间短)与refresh_token(刷新token - 过期时间长)
  */
 @RestController
-public class AuthController {
+public class LoginController {
     @Resource
     private AuthService authService;
     @Resource
     private AuthConfig authConfig;
     @Resource
     private JwtUtil jwtUtil;
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
     @Value("${jwt.authTokenET}")
     //@Value("#{T(java.lang.Integer).parseInt('${jwt.authTokenET}')}")
     private Integer authTokenET;  // 认证token 过期时间
@@ -43,9 +40,9 @@ public class AuthController {
     //@Value("#{T(java.lang.Integer).parseInt('${jwt.refreshTokenET}')}")
     private Integer refreshTokenET;  // 刷新token 过期时间
 
-    @PostMapping("/auth")
+    @PostMapping("/login")
     @ResponseBody
-    public CommonResult<Map> auth(@RequestParam("username") String username, @RequestParam("password") String password) {
+    public CommonResult<Map> login(@RequestParam("username") String username, @RequestParam("password") String password) {
         String tokenKey = authConfig.getSecretKey();  // token密钥
         CommonResult<Map> commonResult = null;
         try {
@@ -56,11 +53,15 @@ public class AuthController {
             String refresh_token = jwtUtil.refreshToken(user, tokenKey, refreshTokenET);
             map.put("auth_token", auth_token);
             map.put("refresh_token", refresh_token);
+            // 将token存入redis
+            stringRedisTemplate.opsForHash().put(user.getUsername(), "auth_token", auth_token);
+            stringRedisTemplate.opsForHash().put(user.getUsername(), "user", user);
+            stringRedisTemplate.opsForHash().put(user.getUsername(), "refresh_token", refresh_token);
+            stringRedisTemplate.expire(user.getUsername(), refreshTokenET, TimeUnit.MILLISECONDS);
             commonResult = CommonResult.success(map);
         } catch (Exception e) {
             commonResult = CommonResult.failed();
         }
-
         return commonResult;
     }
 }
