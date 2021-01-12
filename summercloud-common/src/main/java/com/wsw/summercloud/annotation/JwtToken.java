@@ -1,4 +1,4 @@
-package com.wsw.fusertaskmanager.annotation;
+package com.wsw.summercloud.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

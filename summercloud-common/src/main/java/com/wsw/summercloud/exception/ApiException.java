@@ -1,6 +1,6 @@
-package com.wsw.fusertaskmanager.exception;
+package com.wsw.summercloud.exception;
 
-import com.wsw.fusertaskmanager.api.IErrorCode;
+import com.wsw.summercloud.api.IErrorCode;
 
 /**
  * @Author WangSongWen

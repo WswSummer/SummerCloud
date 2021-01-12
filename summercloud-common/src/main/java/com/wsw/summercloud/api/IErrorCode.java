@@ -1,4 +1,4 @@
-package com.wsw.fusertaskmanager.api;
+package com.wsw.summercloud.api;
 
 /**
  * @Author WangSongWen
