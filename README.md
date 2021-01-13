@@ -204,8 +204,10 @@ management:
 
 ### 访问服务
 
-通过gateway网关暴露服务,通过网关访问具体服务即可,比如访问summercloud-gateway-service微服务:
+将其他服务的端口写在配置中心，只通过4000端口的gateway网关暴露服务,通过网关访问具体服务即可,比如访问summercloud-main-service微服务:
 
 ```text
-http://localhost:4000/summercloud-gateway-service/task/***
+http://localhost:4000/summercloud-main-service/task/***
 ```
+***
+现在将认证中心独立成了微服务，但是token的验证还是在主服务summercloud-main-service中进行，怎样将其移到网关服务summercloud-gateway-service中？
