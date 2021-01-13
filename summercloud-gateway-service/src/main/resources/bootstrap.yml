@@ -67,8 +67,3 @@ spring:
               - OPTIONS
             max-age: 3600  # 缓存时长 1小时
 
-my:
-  jwt:
-    # 跳过认证的路由
-    skip-auth-urls:
-      - /summercloud-auth-service-route

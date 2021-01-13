@@ -4,9 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Map;
 import java.util.UUID;
 
@@ -18,14 +18,14 @@ import java.util.UUID;
 @Service
 @Slf4j
 public class MessageService implements RabbitTemplate.ConfirmCallback, RabbitTemplate.ReturnCallback {
-    @Autowired
+    @Resource
     private RabbitTemplate rabbitTemplate;
 
     public void sendMessage(Map<String, Object> message) {
         rabbitTemplate.setConfirmCallback(this);
         rabbitTemplate.setReturnCallback(this);
         CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());
-        rabbitTemplate.convertAndSend("fanoutExchange", "", message, correlationData);
+        rabbitTemplate.convertAndSend("summerCloudExchange", "", message, correlationData);
     }
 
     @Override

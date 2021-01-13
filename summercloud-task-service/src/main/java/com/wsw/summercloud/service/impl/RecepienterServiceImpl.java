@@ -28,10 +28,10 @@ public class RecepienterServiceImpl implements RecepienterService {
     private RecepienterMapper recepienterMapper;
 
     @RabbitHandler
-    @RabbitListener(queues = "queueRecepienter")
+    @RabbitListener(queues = "queueTask")
     public void receiveMessage(Message message, Channel channel, Map<String, Object> messageMap) throws IOException {
         try {
-            log.info("manager-recepienter-service接收到了消息: " + JSONObject.toJSONString(messageMap));
+            log.info("summercloud-task-service接收到了消息: " + JSONObject.toJSONString(messageMap));
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
             Long taskId = MapUtils.getLong(messageMap, "taskId");
             String taskName = MapUtils.getString(messageMap, "taskName");
@@ -40,7 +40,7 @@ public class RecepienterServiceImpl implements RecepienterService {
             if (null != taskId && StringUtils.isNotBlank(taskName) && StringUtils.isNotBlank(recepientName)) {
                 int result = insert(taskId, taskName, recepientName, remark);
                 if (result >= 1) {
-                    log.info("manager-recepienter-service插入数据成功!");
+                    log.info("summercloud-task-service插入数据成功!");
                 }
             }
         } catch (Exception e) {

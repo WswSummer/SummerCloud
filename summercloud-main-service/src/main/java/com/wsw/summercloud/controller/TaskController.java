@@ -7,9 +7,9 @@ import com.wsw.summercloud.domain.User;
 import com.wsw.summercloud.service.TaskService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -27,7 +27,7 @@ import java.util.List;
 @Slf4j
 @RequestMapping("/task")
 public class TaskController {
-    @Autowired
+    @Resource
     private TaskService taskService;
 
     @GetMapping("/dosth")

@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.amqp.AmqpException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -44,7 +43,7 @@ public class TaskServiceImpl implements TaskService {
     private TaskClient teskClient;
     @Resource
     private AsyncSendMessage asyncSendMessage;
-    @Autowired
+    @Resource
     private RedissonClient redissonClient;
 
     private static final String REDIS_LOCK_KEY = "task-service";
@@ -58,9 +57,7 @@ public class TaskServiceImpl implements TaskService {
             result = taskMapper.createTask(task);
             //同步调用
             // 调用recepienter服务添加领取人员信息
-            //recepienterClient.create(task.getTaskId(), task.getTaskName(), task.getRecepientName(), new Date().toString());
-            // 调用tester服务添加测试人员信息
-            //testerClient.create(task.getTaskId(), task.getTaskName(), task.getTesterName(), new Date().toString());
+            //teskClient.create(task.getTaskId(), task.getTaskName(), task.getRecepientName(), new Date().toString());
             Map<String, Object> messageMap = new HashMap<>();
             messageMap.put("taskId", task.getTaskId());
             messageMap.put("taskName", task.getTaskName());

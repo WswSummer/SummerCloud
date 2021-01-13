@@ -31,8 +31,6 @@ public class LoginController {
     private AuthConfig authConfig;
     @Resource
     private JwtUtil jwtUtil;
-    @Resource
-    private StringRedisTemplate stringRedisTemplate;
     @Value("${jwt.authTokenET}")
     //@Value("#{T(java.lang.Integer).parseInt('${jwt.authTokenET}')}")
     private Integer authTokenET;  // 认证token 过期时间
@@ -40,9 +38,9 @@ public class LoginController {
     //@Value("#{T(java.lang.Integer).parseInt('${jwt.refreshTokenET}')}")
     private Integer refreshTokenET;  // 刷新token 过期时间
 
-    @PostMapping("/login")
+    @PostMapping("/auth")
     @ResponseBody
-    public CommonResult<Map> login(@RequestParam("username") String username, @RequestParam("password") String password) {
+    public CommonResult<Map> auth(@RequestParam("username") String username, @RequestParam("password") String password) {
         String tokenKey = authConfig.getSecretKey();  // token密钥
         CommonResult<Map> commonResult = null;
         try {
@@ -53,11 +51,6 @@ public class LoginController {
             String refresh_token = jwtUtil.refreshToken(user, tokenKey, refreshTokenET);
             map.put("auth_token", auth_token);
             map.put("refresh_token", refresh_token);
-            // 将token存入redis
-            stringRedisTemplate.opsForHash().put(user.getUsername(), "auth_token", auth_token);
-            stringRedisTemplate.opsForHash().put(user.getUsername(), "user", user);
-            stringRedisTemplate.opsForHash().put(user.getUsername(), "refresh_token", refresh_token);
-            stringRedisTemplate.expire(user.getUsername(), refreshTokenET, TimeUnit.MILLISECONDS);
             commonResult = CommonResult.success(map);
         } catch (Exception e) {
             commonResult = CommonResult.failed();
