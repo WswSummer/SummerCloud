@@ -81,7 +81,7 @@ public class AuthController {
         CommonResult<Map> commonResult;
         Map<String,Object> resultMap = new HashMap<>();
         String refreshTokenKey = String.format(jwtRefreshTokenKeyFormat, refreshToken);
-        String userName = (String)stringRedisTemplate.opsForHash().get(refreshTokenKey, "userName");
+        String userName = (String)stringRedisTemplate.opsForHash().get(refreshTokenKey, "username");
         if(StringUtils.isBlank(userName)){
             commonResult = CommonResult.unauthorized();
             return commonResult;
@@ -92,7 +92,7 @@ public class AuthController {
         stringRedisTemplate.opsForHash().put(refreshTokenKey, "token", newToken);
         stringRedisTemplate.opsForValue().set(String.format(jwtBlacklistKeyFormat, oldToken), "",
                 tokenExpireTime, TimeUnit.MILLISECONDS);
-        resultMap.put("data", newToken);
+        resultMap.put("token", newToken);
         commonResult = CommonResult.success(resultMap);
         return commonResult;
     }
