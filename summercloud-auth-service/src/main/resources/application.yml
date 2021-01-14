@@ -1,5 +1,23 @@
+# token过期时间：1h
+token:
+  expire:
+    time: 3600000
+
+# refreshToken过期时间：2h
+refresh:
+  token:
+    expire:
+      time: 7200000
+
+
 jwt:
-    # 24*60*60*1000
-    authTokenET: 86400000
-    # 7*24*60*60*1000
-    refreshTokenET: 604800000
+  # refreshToken 存储key
+  refresh:
+    token:
+      key:
+        format: JWT_REFRESH_TOKEN::%s
+
+  # token黑名单 存储key
+  blacklist:
+    key:
+      format: JWT_BLACKLIST::%s

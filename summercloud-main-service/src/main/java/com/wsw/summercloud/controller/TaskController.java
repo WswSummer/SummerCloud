@@ -30,13 +30,6 @@ public class TaskController {
     @Resource
     private TaskService taskService;
 
-    @GetMapping("/dosth")
-    @JwtToken(required = true)
-    public CommonResult dosth(@RequestAttribute(value = "$user", required = false) User user){
-        System.out.println(user);
-        return CommonResult.success("TaskController.dosth");
-    }
-
     @PostMapping("/create")
     public CommonResult createTask(@RequestBody Task task) {
         int result = taskService.createTask(task);
