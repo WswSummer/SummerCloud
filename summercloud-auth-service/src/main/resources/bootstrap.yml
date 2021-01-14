@@ -16,7 +16,7 @@ spring:
             group: DEFAULT_GROUP
             refresh: true  # 是否允许自动刷新
 
-# 全局参数设置
+# ribbon参数设置
 ribbon:
   ReadTimeout: 120000
   ConnectTimeout: 10000

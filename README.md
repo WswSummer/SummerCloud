@@ -200,6 +200,25 @@ management:
         include: '*'
 ```
 
+#### 5. 配置文件summercloud-gateway-service-dev.yaml
+
+```yaml
+spring:
+  redis:
+    host: 39.107.80.231
+    port: 6379
+    lettuce:
+      pool:
+        # 连接池最大连接数(使用负值表示没有限制) 默认为8
+        max-active: 8
+        # 连接池最大阻塞等待时间(使用负值表示没有限制) 默认为-1
+        max-wait: -1ms
+        # 连接池中的最大空闲连接 默认为8
+        max-idle: 8
+        # 连接池中的最小空闲连接 默认为 0
+        min-idle: 0
+```
+
 配置文件在Nacos配置中心配置好后即可依次启动服务。
 
 ### 访问服务
@@ -210,4 +229,4 @@ management:
 http://localhost:4000/summercloud-main-service/task/***
 ```
 ***
-现在将认证中心独立成了微服务，但是token的验证还是在主服务summercloud-main-service中进行，怎样将其移到网关服务summercloud-gateway-service中？
+将认证中心独立成了微服务，将token的验证从主服务移到网关服务summercloud-gateway-service中统一鉴权

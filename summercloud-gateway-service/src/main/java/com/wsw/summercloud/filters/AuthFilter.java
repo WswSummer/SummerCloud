@@ -59,22 +59,21 @@ public class AuthFilter implements GlobalFilter, Ordered {
             ServerHttpResponse originalResponse = exchange.getResponse();
             originalResponse.setStatusCode(HttpStatus.OK);
             originalResponse.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
-            byte[] response = "{\"code\": \"401\",\"msg\": \"401 Unauthorized.\"}".getBytes(StandardCharsets.UTF_8);
+            byte[] response = "{\"code\": \"401\",\"massage\": \"401 Unauthorized.\"}".getBytes(StandardCharsets.UTF_8);
             DataBuffer buffer = originalResponse.bufferFactory().wrap(response);
             return originalResponse.writeWith(Flux.just(buffer));
         }
-        //取出token包含的身份，用于业务处理
+        // 取出token包含的身份，用于业务处理
         String userName = verifyJWT(token);
         if(userName.isEmpty()){
             ServerHttpResponse originalResponse = exchange.getResponse();
             originalResponse.setStatusCode(HttpStatus.OK);
             originalResponse.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
-            byte[] response = "{\"code\": \"10002\",\"msg\": \"invalid token.\"}"
-                    .getBytes(StandardCharsets.UTF_8);
+            byte[] response = "{\"code\": \"403\",\"msg\": \"invalid token.\"}".getBytes(StandardCharsets.UTF_8);
             DataBuffer buffer = originalResponse.bufferFactory().wrap(response);
             return originalResponse.writeWith(Flux.just(buffer));
         }
-        //将现在的request，添加当前身份
+        // 将现在的request，添加当前身份
         ServerHttpRequest mutableReq = exchange.getRequest().mutate().header("Authorization-UserName", userName).build();
         ServerWebExchange mutableExchange = exchange.mutate().request(mutableReq).build();
         return chain.filter(mutableExchange);

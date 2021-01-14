@@ -83,9 +83,7 @@ public class AuthController {
         String refreshTokenKey = String.format(jwtRefreshTokenKeyFormat, refreshToken);
         String userName = (String)stringRedisTemplate.opsForHash().get(refreshTokenKey, "userName");
         if(StringUtils.isBlank(userName)){
-            resultMap.put("code", "10001");
-            resultMap.put("msg", "refreshToken过期");
-            commonResult = CommonResult.unauthorized(resultMap);
+            commonResult = CommonResult.unauthorized();
             return commonResult;
         }
         String newToken = buildJWT(userName);
@@ -94,7 +92,6 @@ public class AuthController {
         stringRedisTemplate.opsForHash().put(refreshTokenKey, "token", newToken);
         stringRedisTemplate.opsForValue().set(String.format(jwtBlacklistKeyFormat, oldToken), "",
                 tokenExpireTime, TimeUnit.MILLISECONDS);
-        resultMap.put("code", "10000");
         resultMap.put("data", newToken);
         commonResult = CommonResult.success(resultMap);
         return commonResult;
@@ -109,7 +106,7 @@ public class AuthController {
                 .withIssuer("WSW")
                 .withIssuedAt(now)
                 .withExpiresAt(new Date(now.getTime() + tokenExpireTime))
-                .withClaim("userName", userName)//保存身份标识
+                .withClaim("userName", userName) // 保存身份标识
                 .sign(algo);
         return token;
     }
