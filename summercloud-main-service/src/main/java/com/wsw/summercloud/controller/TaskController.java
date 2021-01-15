@@ -1,9 +1,7 @@
 package com.wsw.summercloud.controller;
 
-import com.wsw.summercloud.annotation.JwtToken;
 import com.wsw.summercloud.api.CommonResult;
 import com.wsw.summercloud.domain.Task;
-import com.wsw.summercloud.domain.User;
 import com.wsw.summercloud.service.TaskService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;

@@ -1,6 +1,6 @@
 package com.wsw.summercloud.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.client.Channel;
 import com.wsw.summercloud.mapper.RecepienterMapper;
 import com.wsw.summercloud.service.RecepienterService;
@@ -31,7 +31,8 @@ public class RecepienterServiceImpl implements RecepienterService {
     @RabbitListener(queues = "queueTask")
     public void receiveMessage(Message message, Channel channel, Map<String, Object> messageMap) throws IOException {
         try {
-            log.info("summercloud-task-service接收到了消息: " + JSONObject.toJSONString(messageMap));
+            ObjectMapper objectMapper = new ObjectMapper();
+            log.info("summercloud-task-service接收到了消息: " + objectMapper.writeValueAsString(messageMap));
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
             Long taskId = MapUtils.getLong(messageMap, "taskId");
             String taskName = MapUtils.getString(messageMap, "taskName");
