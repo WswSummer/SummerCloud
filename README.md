@@ -127,7 +127,7 @@ management:
 
 ```yaml
 server:
-  port: 4050
+  port: 3000
 
 spring:
   datasource:
