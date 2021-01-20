@@ -79,12 +79,12 @@ server:
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://39.107.80.231:3306/task-system?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
-    username: HengTian
+    url: jdbc:mysql://***:3306/task-system?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: ***
     password: ***
 
   redis:
-    host: 39.107.80.231
+    host: ***
     port: 6379
     lettuce:
       pool:
@@ -132,12 +132,12 @@ server:
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://39.107.80.231:3306/task-system?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
-    username: HengTian
-    password: HengTian0.0
+    url: jdbc:mysql://***:3306/task-system?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: ***
+    password: ***
 
   redis:
-    host: 39.107.80.231
+    host: ***
     port: 6379
     lettuce:
       pool:
@@ -170,8 +170,8 @@ server:
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://39.107.80.231:3306/task-system?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
-    username: HengTian
+    url: jdbc:mysql://***:3306/task-system?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: ***
     password: ***
 
   rabbitmq:
@@ -205,7 +205,7 @@ management:
 ```yaml
 spring:
   redis:
-    host: 39.107.80.231
+    host: ***
     port: 6379
     lettuce:
       pool:
